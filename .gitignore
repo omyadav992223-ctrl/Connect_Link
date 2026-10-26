@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+Patent Proposal template Rev. 12-08-26.docx

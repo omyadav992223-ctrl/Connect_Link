@@ -1,0 +1,275 @@
+/* =============================================================================
+   panels.css — Panel content styles (Truth Table, Boolean, K-Map, HW, Vehicle)
+   Follows the CircuitVerse-inspired design system.
+============================================================================= */
+
+/* =============================================================================
+   TRUTH TABLE
+============================================================================= */
+
+.tt-wrap { overflow: auto; flex: 1; }
+
+.truth-table {
+  border-collapse: collapse;
+  font: 400 12.5px var(--font-mono);
+  white-space: nowrap;
+  width: 100%;
+}
+.truth-table th,
+.truth-table td {
+  padding: 4px 16px;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.truth-table thead th {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-panel);
+  font: 700 11px var(--font-ui);
+  letter-spacing: 0.05em;
+  position: sticky; top: 0;
+}
+.tt-input-head  { background: rgba(59,130,246,0.15) !important; }
+.tt-output-head { background: rgba(16,185,129,0.15) !important; color: var(--sig-high) !important; }
+.tt-sep         { width: 6px; border: none; background: transparent; padding: 0; }
+
+.truth-table tbody tr:hover td { background: rgba(255,255,255,0.04); }
+
+.val-1 { color: var(--sig-high); font-weight: 700; }
+.val-0 { color: var(--sig-low); }
+.val-x { color: var(--sig-x); }
+
+/* Active row */
+tr.tt-active td {
+  background: rgba(16,185,129,0.12) !important;
+  border-color: var(--sig-high);
+}
+tr.tt-active { outline: none; }
+tr.tt-active td:first-child { border-left: 3px solid var(--sig-high); }
+
+.tt-footer {
+  font: 400 11px var(--font-ui);
+  color: var(--text-muted);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+/* =============================================================================
+   BOOLEAN EXPRESSION
+============================================================================= */
+
+.bool-list { display: flex; flex-direction: column; gap: 12px; }
+
+.bool-expr-block {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px 14px;
+}
+.bool-label {
+  font: 700 10px var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.bool-expr {
+  font: 500 17px/1.6 var(--font-mono);
+  color: var(--text-panel);
+}
+.bool-op.bool-and  { color: #3b82f6; }
+.bool-op.bool-or   { color: var(--sig-high); }
+.bool-op.bool-xor  { color: var(--sig-x); }
+.bool-var          { color: #a78bfa; }
+.bool-not          { color: var(--danger-light); font-size: 11px; vertical-align: super; }
+
+.bool-minterm {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 8px;
+  padding: 4px 10px;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.3);
+  border-radius: 3px;
+  font: 400 11.5px var(--font-mono);
+  color: var(--text-muted);
+}
+.bool-minterm-val { color: var(--sig-high); font-weight: 600; }
+
+/* =============================================================================
+   K-MAP
+============================================================================= */
+
+.kmap-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px; flex-shrink: 0;
+}
+.kmap-title { font: 400 12px var(--font-ui); color: var(--text-muted); }
+.kmap-select {
+  background: var(--bg-panel-deep);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-panel);
+  font: 400 12px var(--font-mono);
+  padding: 3px 8px;
+  outline: none;
+}
+.kmap-select:focus { border-color: var(--sig-high); }
+
+.kmap-grid-wrap { overflow: auto; margin-bottom: 10px; }
+
+.kmap-table { border-collapse: collapse; font: 400 12.5px var(--font-mono); }
+.kmap-table th {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-muted);
+  padding: 5px 14px;
+  border: 1px solid var(--border);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.kmap-table .kmap-corner {
+  background: rgba(255,255,255,0.03);
+  font-style: italic; font-size: 10px;
+}
+
+.kmap-cell {
+  width: 48px; height: 40px;
+  text-align: center;
+  border: 1px solid var(--border);
+  font: 700 15px var(--font-mono);
+  cursor: default; position: relative;
+}
+.kmap-cell-1  { background: rgba(16,185,129,0.18); color: var(--sig-high); }
+.kmap-cell-0  { background: rgba(255,255,255,0.02); color: var(--text-muted); }
+.kmap-cell-dc { background: rgba(245,158,11,0.12); color: var(--sig-x); }
+
+.kmap-groups {
+  font: 400 11.5px var(--font-ui);
+  color: var(--text-muted); margin-bottom: 6px; flex-shrink: 0;
+}
+.kmap-group-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 2px 7px; margin: 2px 2px 2px 0;
+  font: 400 11px var(--font-mono);
+}
+.kmap-expr { font: 400 12px var(--font-ui); color: var(--text-muted); flex-shrink: 0; }
+.kmap-sop { color: var(--sig-high); font: 700 15px var(--font-mono); margin-left: 8px; }
+
+/* =============================================================================
+   HARDWARE PANEL
+============================================================================= */
+
+.hw-panel { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+
+.hw-status-bar {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 7px 12px;
+}
+.hw-dot { font-size: 18px; }
+.hw-status-text { font: 700 12.5px var(--font-ui); color: var(--text-panel); }
+.hw-status-msg  { font: 400 11.5px var(--font-ui); color: var(--text-muted); }
+
+.hw-warning {
+  background: rgba(245,158,11,0.1);
+  border: 1px solid var(--sig-x);
+  color: #fde68a;
+  border-radius: 3px;
+  padding: 6px 10px;
+  font: 400 12px var(--font-ui);
+}
+
+.hw-controls { display: flex; gap: 6px; flex-wrap: wrap; }
+.hw-btn {
+  padding: 5px 12px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-panel);
+  font: 500 12px var(--font-ui);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.hw-btn:hover { background: rgba(255,255,255,0.12); }
+.hw-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.hw-btn-primary { background: var(--sig-high); border-color: var(--sig-high); color: #002113; font-weight: 600; }
+.hw-btn-primary:hover { background: var(--accent-hover); }
+.hw-btn-danger  { background: rgba(185,26,36,0.2); border-color: var(--danger); color: #fca5a5; }
+.hw-btn-danger:hover { background: rgba(185,26,36,0.35); }
+
+.hw-sensor-grid {
+  display: flex; gap: 8px;
+}
+.hw-sensor-card {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 8px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.sensor-detected { border-color: var(--alert); background: rgba(239,68,68,0.08); }
+.sensor-clear    { border-color: var(--sig-high); }
+.sensor-unknown  {}
+
+.sensor-icon  { font: 400 18px var(--font-ui); margin-bottom: 3px; }
+.sensor-title { font: 700 9px var(--font-ui); letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); }
+.sensor-value { font: 700 22px var(--font-mono); color: var(--text-panel); margin: 3px 0; }
+.sensor-label { font: 700 9px var(--font-ui); letter-spacing: 0.08em; }
+.sensor-detected .sensor-label { color: #fca5a5; }
+.sensor-clear    .sensor-label { color: var(--sig-high); }
+.sensor-unknown  .sensor-label { color: var(--text-muted); }
+
+.hw-serial-log {
+  background: var(--bg-panel-deep);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.hw-log-header {
+  background: rgba(255,255,255,0.04);
+  padding: 4px 10px;
+  font: 700 10px var(--font-ui);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex; align-items: center; gap: 6px;
+}
+.hw-live-badge {
+  background: var(--alert); color: #fff;
+  font: 700 9px var(--font-ui);
+  padding: 1px 5px; border-radius: 2px;
+  animation: pulse-badge 1s infinite;
+}
+@keyframes pulse-badge { 0%,100%{opacity:1} 50%{opacity:0.5} }
+.hw-log-body {
+  padding: 5px 10px;
+  max-height: 65px;
+  overflow-y: auto;
+  font: 400 11.5px var(--font-mono);
+}
+.hw-log-line { color: var(--sig-high); padding: 1px 0; }
+.hw-log-empty { color: var(--text-muted); }
+
+.hw-mode-note {
+  font: 400 12px var(--font-ui);
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 7px 10px;
+}
+
+/* =============================================================================
+   VEHICLE VISUALIZATION
+============================================================================= */
+
+#panel-viz canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

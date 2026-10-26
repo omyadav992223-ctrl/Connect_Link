@@ -1,0 +1,101 @@
+{
+  "version": "1.0",
+  "name": "Blind-Spot — Simple Demo Circuit",
+  "components": [
+    {
+      "id": "input_L",
+      "type": "INPUT",
+      "label": "L",
+      "position": { "x": 80, "y": 120 },
+      "size": { "width": 60, "height": 40 },
+      "inputPorts": [],
+      "outputPorts": [{ "id": "out", "name": "Q", "direction": "output", "value": 0 }],
+      "config": {}
+    },
+    {
+      "id": "input_R",
+      "type": "INPUT",
+      "label": "R",
+      "position": { "x": 80, "y": 240 },
+      "size": { "width": 60, "height": 40 },
+      "inputPorts": [],
+      "outputPorts": [{ "id": "out", "name": "Q", "direction": "output", "value": 0 }],
+      "config": {}
+    },
+    {
+      "id": "input_LC",
+      "type": "INPUT",
+      "label": "LC",
+      "position": { "x": 80, "y": 360 },
+      "size": { "width": 60, "height": 40 },
+      "inputPorts": [],
+      "outputPorts": [{ "id": "out", "name": "Q", "direction": "output", "value": 0 }],
+      "config": {}
+    },
+    {
+      "id": "or_gate",
+      "type": "OR",
+      "label": "OR",
+      "position": { "x": 260, "y": 170 },
+      "size": { "width": 80, "height": 60 },
+      "inputPorts": [
+        { "id": "in_A", "name": "A", "direction": "input", "value": "X" },
+        { "id": "in_B", "name": "B", "direction": "input", "value": "X" }
+      ],
+      "outputPorts": [{ "id": "out_Y", "name": "Y", "direction": "output", "value": "X" }],
+      "config": {}
+    },
+    {
+      "id": "and_gate",
+      "type": "AND",
+      "label": "AND",
+      "position": { "x": 420, "y": 260 },
+      "size": { "width": 80, "height": 60 },
+      "inputPorts": [
+        { "id": "in_A", "name": "A", "direction": "input", "value": "X" },
+        { "id": "in_B", "name": "B", "direction": "input", "value": "X" }
+      ],
+      "outputPorts": [{ "id": "out_Y", "name": "Y", "direction": "output", "value": "X" }],
+      "config": {}
+    },
+    {
+      "id": "led_alert",
+      "type": "LED",
+      "label": "ALERT",
+      "position": { "x": 580, "y": 180 },
+      "size": { "width": 50, "height": 50 },
+      "inputPorts": [{ "id": "in", "name": "in", "direction": "input", "value": "X" }],
+      "outputPorts": [{ "id": "out", "name": "Q", "direction": "output", "value": "X" }],
+      "config": {}
+    },
+    {
+      "id": "led_critical",
+      "type": "LED",
+      "label": "CRITICAL",
+      "position": { "x": 580, "y": 280 },
+      "size": { "width": 50, "height": 50 },
+      "inputPorts": [{ "id": "in", "name": "in", "direction": "input", "value": "X" }],
+      "outputPorts": [{ "id": "out", "name": "Q", "direction": "output", "value": "X" }],
+      "config": {}
+    },
+    {
+      "id": "buzzer_out",
+      "type": "BUZZER",
+      "label": "BUZZER",
+      "position": { "x": 580, "y": 380 },
+      "size": { "width": 60, "height": 50 },
+      "inputPorts": [{ "id": "in", "name": "in", "direction": "input", "value": "X" }],
+      "outputPorts": [{ "id": "out", "name": "Q", "direction": "output", "value": "X" }],
+      "config": {}
+    }
+  ],
+  "wires": [
+    { "id": "w_L_or",       "fromComponentId": "input_L",  "fromPortId": "out",   "toComponentId": "or_gate",  "toPortId": "in_A",  "value": "X" },
+    { "id": "w_R_or",       "fromComponentId": "input_R",  "fromPortId": "out",   "toComponentId": "or_gate",  "toPortId": "in_B",  "value": "X" },
+    { "id": "w_or_alert",   "fromComponentId": "or_gate",  "fromPortId": "out_Y", "toComponentId": "led_alert","toPortId": "in",    "value": "X" },
+    { "id": "w_or_and",     "fromComponentId": "or_gate",  "fromPortId": "out_Y", "toComponentId": "and_gate", "toPortId": "in_A",  "value": "X" },
+    { "id": "w_LC_and",     "fromComponentId": "input_LC", "fromPortId": "out",   "toComponentId": "and_gate", "toPortId": "in_B",  "value": "X" },
+    { "id": "w_and_crit",   "fromComponentId": "and_gate", "fromPortId": "out_Y", "toComponentId": "led_critical","toPortId": "in","value": "X" },
+    { "id": "w_and_buzzer", "fromComponentId": "and_gate", "fromPortId": "out_Y", "toComponentId": "buzzer_out","toPortId": "in",  "value": "X" }
+  ]
+}

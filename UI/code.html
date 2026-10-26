@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CircuitVerse Sim — Smart Logic Lab</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-background": "#161c24",
+            "on-tertiary-fixed-variant": "#930013",
+            "surface-container-low": "#eef4ff",
+            "surface-tint": "#006c49",
+            "secondary-fixed-dim": "#bcc7de",
+            "surface-container-highest": "#dde3ed",
+            "surface-container-lowest": "#ffffff",
+            "outline": "#6c7a71",
+            "on-tertiary-container": "#79000e",
+            "on-secondary-container": "#586377",
+            "on-surface-variant": "#3c4a42",
+            "on-surface": "#161c24",
+            "error-container": "#ffdad6",
+            "tertiary": "#b91a24",
+            "surface-container-high": "#e3e8f3",
+            "error": "#ba1a1a",
+            "tertiary-fixed": "#ffdad7",
+            "on-primary-fixed-variant": "#005236",
+            "on-primary-fixed": "#002113",
+            "surface-dim": "#d5dae5",
+            "primary-fixed": "#6ffbbe",
+            "on-error-container": "#93000a",
+            "on-secondary": "#ffffff",
+            "tertiary-container": "#ff7a73",
+            "surface": "#f8f9ff",
+            "secondary-container": "#d5e0f8",
+            "primary-container": "#10b981",
+            "secondary": "#545f73",
+            "on-primary": "#ffffff",
+            "surface-variant": "#dde3ed",
+            "inverse-surface": "#2b3139",
+            "secondary-fixed": "#d8e3fb",
+            "tertiary-fixed-dim": "#ffb3ad",
+            "surface-bright": "#f8f9ff",
+            "surface-container": "#e9eef9",
+            "primary-fixed-dim": "#4edea3",
+            "on-secondary-fixed-variant": "#3c475a",
+            "on-tertiary": "#ffffff",
+            "background": "#f8f9ff",
+            "primary": "#006c49",
+            "on-primary-container": "#00422b",
+            "inverse-on-surface": "#ecf1fc",
+            "on-error": "#ffffff",
+            "on-secondary-fixed": "#111c2d",
+            "inverse-primary": "#4edea3",
+            "outline-variant": "#bbcabf",
+            "on-tertiary-fixed": "#410004"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter": "1rem",
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem",
+            "gutter-sm": "0.5rem",
+            "space-lg": "1rem",
+            "space-md": "0.75rem",
+            "space-xl": "1.5rem",
+            "margin": "1rem",
+            "margin-mobile": "0.75rem"
+          },
+          "fontFamily": {
+            "headline-xl": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "body-lg": ["JetBrains Mono"],
+            "code-value": ["JetBrains Mono"],
+            "headline-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-sm": ["JetBrains Mono"],
+            "body-md": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "headline-xl": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-md": ["0.8125rem", { "lineHeight": "1.125rem", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "label-sm": ["0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-lg": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "400" }],
+            "code-value": ["0.8125rem", { "lineHeight": "1rem", "fontWeight": "500" }],
+            "headline-sm": ["1rem", { "lineHeight": "1.5rem", "fontWeight": "600" }],
+            "headline-md": ["1.25rem", { "lineHeight": "1.75rem", "fontWeight": "600" }],
+            "headline-lg-mobile": ["1.5rem", { "lineHeight": "2rem", "fontWeight": "600" }],
+            "headline-lg": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-sm": ["0.75rem", { "lineHeight": "1.125rem", "fontWeight": "400" }],
+            "body-md": ["0.875rem", { "lineHeight": "1.375rem", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-size: 18px;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .canvas-grid {
+      background-color: #ffffff;
+      background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+      background-size: 16px 16px;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background h-screen flex flex-col overflow-hidden select-none">
+<!-- TOP NAVIGATION BAR (Shared Component: TopNavBar) -->
+<header class="bg-inverse-surface border-b border-outline flex justify-between items-center w-full px-3 h-12 select-none z-40 shrink-0">
+<!-- Left Logo & Nav Links -->
+<div class="flex items-center space-x-3">
+<div class="flex items-center space-x-2">
+<span class="w-6 h-6 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-bold font-headline-sm text-label-sm">CV</span>
+<span class="text-headline-sm font-headline-sm font-bold text-inverse-on-surface tracking-tight">CircuitVerse Sim</span>
+<span class="text-outline-variant font-code-value text-body-sm hidden lg:inline">/ Smart Logic Lab</span>
+</div>
+<!-- Navigation Dropdown Links -->
+<nav class="hidden md:flex items-center space-x-1 pl-2 font-label-md text-label-md">
+<button class="text-outline-variant hover:text-inverse-on-surface px-2.5 py-1 transition-colors flex items-center gap-0.5">Project <span class="text-[10px]">▾</span></button>
+<button class="text-inverse-on-surface font-semibold bg-surface-variant/20 px-2.5 py-1 rounded transition-colors flex items-center gap-0.5">Circuit <span class="text-[10px]">▾</span></button>
+<button class="text-outline-variant hover:text-inverse-on-surface px-2.5 py-1 transition-colors flex items-center gap-0.5">Tools <span class="text-[10px]">▾</span></button>
+<button class="text-outline-variant hover:text-inverse-on-surface px-2.5 py-1 transition-colors flex items-center gap-0.5">Presets <span class="text-[10px]">▾</span></button>
+<button class="text-outline-variant hover:text-inverse-on-surface px-2.5 py-1 transition-colors flex items-center gap-0.5">Help <span class="text-[10px]">▾</span></button>
+</nav>
+</div>
+<!-- Center File Badge -->
+<div class="hidden sm:flex items-center bg-inverse-surface/80 border border-outline/40 px-3 py-1 rounded">
+<span class="material-symbols-outlined text-primary-container mr-1.5" style="font-size: 16px;">schema</span>
+<span class="font-code-value text-body-sm text-inverse-on-surface">Blind-Spot System.cv</span>
+<span class="inline-block w-2 h-2 rounded-full bg-primary-container ml-2" title="Saved &amp; In Sync"></span>
+</div>
+<!-- Right Controls -->
+<div class="flex items-center space-x-2">
+<!-- Mode Segmented Control -->
+<div class="flex items-center bg-on-surface-variant/20 p-0.5 rounded text-body-sm font-code-value">
+<button class="px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-semibold shadow-sm">Simulation Mode</button>
+<button class="px-2 py-0.5 rounded text-outline-variant hover:text-inverse-on-surface transition-colors">Hardware (COM3)</button>
+</div>
+<!-- COM3 Online Status Badge -->
+<div class="hidden xl:flex items-center gap-1.5 px-2 py-1 rounded bg-surface-variant/10 text-outline-variant font-code-value text-body-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-inverse-on-surface">● Arduino: COM3 (Online)</span>
+</div>
+<!-- Trailing Preset Primary Action -->
+<button class="bg-primary-container text-on-primary-container hover:bg-primary-fixed-dim px-3 py-1 rounded font-label-md text-label-md font-semibold flex items-center gap-1 transition-transform active:scale-95 shadow-sm">
+<span>⚡ Blind-Spot Preset</span>
+</button>
+<!-- Standard Icon Actions -->
+<div class="flex items-center text-outline-variant pl-1">
+<button class="p-1 hover:text-inverse-on-surface transition-colors" title="USB Serial"><span class="material-symbols-outlined">usb</span></button>
+<button class="p-1 hover:text-inverse-on-surface transition-colors" title="Settings"><span class="material-symbols-outlined">settings</span></button>
+<button class="p-1 text-primary-container hover:text-primary-fixed transition-colors" title="Run Simulation"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span></button>
+</div>
+</div>
+</header>
+<!-- WORKBENCH BODY (3-Pane Layout + Bottom Dock) -->
+<div class="flex-1 flex overflow-hidden relative">
+<!-- LEFT PANEL: CIRCUIT ELEMENTS (Shared Component: SideNavBar) -->
+<aside class="w-60 bg-inverse-surface border-r border-outline flex flex-col justify-between shrink-0 select-none z-20">
+<!-- Top Title & Search -->
+<div class="p-3 border-b border-outline/50">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center space-x-1.5">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 16px;">device_hub</span>
+<span class="text-label-sm font-label-sm font-bold text-inverse-on-surface tracking-wider">CIRCUIT ELEMENTS</span>
+</div>
+<span class="text-outline-variant font-code-value text-body-sm">220px Tool Dock</span>
+</div>
+<div class="relative">
+<input class="w-full bg-[#1e2328] border border-outline/40 rounded px-2.5 py-1 text-inverse-on-surface font-code-value text-body-sm placeholder-outline-variant focus:outline-none focus:border-primary-container" placeholder="Search components..." type="text"/>
+<span class="material-symbols-outlined absolute right-2 top-1.5 text-outline-variant text-[16px]">search</span>
+</div>
+</div>
+<!-- Accordion Gate Palette -->
+<div class="flex-1 overflow-y-auto px-2 py-2 space-y-1">
+<!-- Input Group -->
+<div class="text-outline-variant hover:text-inverse-on-surface hover:bg-surface-variant/10 rounded px-2 py-1.5 flex items-center justify-between cursor-pointer font-label-md text-label-md">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined">input</span> Input</span>
+<span class="text-[10px] text-outline-variant">▸</span>
+</div>
+<!-- Output Group -->
+<div class="text-outline-variant hover:text-inverse-on-surface hover:bg-surface-variant/10 rounded px-2 py-1.5 flex items-center justify-between cursor-pointer font-label-md text-label-md">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined">output</span> Output</span>
+<span class="text-[10px] text-outline-variant">▸</span>
+</div>
+<!-- Gates Group -->
+<div class="text-outline-variant hover:text-inverse-on-surface hover:bg-surface-variant/10 rounded px-2 py-1.5 flex items-center justify-between cursor-pointer font-label-md text-label-md">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined">device_hub</span> Gates (AND, OR, NOT)</span>
+<span class="text-[10px] text-outline-variant">▸</span>
+</div>
+<!-- Decoders Group -->
+<div class="text-outline-variant hover:text-inverse-on-surface hover:bg-surface-variant/10 rounded px-2 py-1.5 flex items-center justify-between cursor-pointer font-label-md text-label-md">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined">schema</span> Decoders &amp; Plexers</span>
+<span class="text-[10px] text-outline-variant">▸</span>
+</div>
+<!-- Smart Sensors (Expanded Active Group) -->
+<div class="border-l-2 border-primary-container bg-surface-variant/15 rounded-r">
+<div class="text-inverse-on-surface px-2 py-1.5 flex items-center justify-between font-label-md text-label-md font-semibold cursor-pointer">
+<span class="flex items-center gap-2 text-primary-container"><span class="material-symbols-outlined">sensors</span> Smart Sensors</span>
+<span class="text-[10px] text-primary-container">▾</span>
+</div>
+<!-- Sub Items for Academic Project -->
+<div class="pl-6 pr-2 py-1 space-y-1 font-code-value text-body-sm">
+<div class="flex items-center justify-between p-1 rounded bg-[#1e2328] hover:border-primary-container/60 border border-outline/30 cursor-grab text-inverse-on-surface">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded bg-primary-container"></span> Left IR [L]</span>
+<span class="text-[10px] text-primary-container font-mono">1-bit</span>
+</div>
+<div class="flex items-center justify-between p-1 rounded bg-[#1e2328] hover:border-primary-container/60 border border-outline/30 cursor-grab text-inverse-on-surface">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded bg-primary-container"></span> Right IR [R]</span>
+<span class="text-[10px] text-primary-container font-mono">1-bit</span>
+</div>
+<div class="flex items-center justify-between p-1 rounded bg-[#1e2328] hover:border-primary-container/60 border border-outline/30 cursor-grab text-inverse-on-surface">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded bg-primary-container"></span> Lane Lever [LC]</span>
+<span class="text-[10px] text-primary-container font-mono">1-bit</span>
+</div>
+</div>
+</div>
+<!-- Add Custom IC CTA -->
+<div class="pt-2 px-1">
+<button class="w-full py-1.5 bg-[#1e2328] hover:bg-surface-variant/20 border border-dashed border-outline text-outline-variant hover:text-inverse-on-surface text-label-sm font-label-sm rounded flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">add</span> Add Custom IC
+          </button>
+</div>
+</div>
+<!-- Dock Footer -->
+<div class="p-2 border-t border-outline/50 text-body-sm font-code-value text-outline-variant space-y-0.5">
+<a class="flex items-center gap-2 px-2 py-1 hover:text-inverse-on-surface rounded transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">help</span> Documentation</a>
+<a class="flex items-center gap-2 px-2 py-1 hover:text-inverse-on-surface rounded transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">keyboard</span> Keyboard Shortcuts</a>
+</div>
+</aside>
+<!-- CENTER SECTION: FLOATING CAD TOOLBAR + CIRCUIT CANVAS + BOTTOM DOCK -->
+<main class="flex-1 flex flex-col relative bg-surface-container-lowest overflow-hidden">
+<!-- FLOATING ACTION TOOLBAR (Top Floating CAD Pill) -->
+<div class="absolute top-3 left-1/2 -translate-x-1/2 z-30 flex items-center bg-inverse-surface/95 text-inverse-on-surface border border-outline/60 px-3 py-1 rounded shadow-md gap-2">
+<button class="p-1 hover:text-primary-container transition-colors" title="Save Project (Ctrl+S)"><span class="material-symbols-outlined">save</span></button>
+<button class="p-1 hover:text-primary-container transition-colors" title="Export Circuit Schematic"><span class="material-symbols-outlined">download</span></button>
+<div class="w-px h-4 bg-outline/40"></div>
+<button class="p-1 hover:text-primary-container transition-colors" title="Undo (Ctrl+Z)"><span class="material-symbols-outlined">undo</span></button>
+<button class="p-1 hover:text-primary-container transition-colors" title="Redo (Ctrl+Y)"><span class="material-symbols-outlined">redo</span></button>
+<div class="w-px h-4 bg-outline/40"></div>
+<div class="flex items-center gap-1 px-1">
+<span class="text-body-sm font-code-value text-outline-variant">-</span>
+<div class="w-16 h-1 bg-outline/50 rounded relative">
+<div class="absolute left-2/3 -top-1 w-3 h-3 bg-primary-container rounded-full cursor-pointer shadow"></div>
+</div>
+<span class="text-body-sm font-code-value text-outline-variant">+</span>
+</div>
+<button class="px-1.5 py-0.5 bg-on-surface-variant/20 hover:bg-on-surface-variant/40 rounded font-code-value text-body-sm text-inverse-on-surface" title="Fit to Screen">100%</button>
+<div class="w-px h-4 bg-outline/40"></div>
+<button class="p-1 text-tertiary-container hover:text-tertiary transition-colors" title="Delete Selected Wire / Gate"><span class="material-symbols-outlined">delete</span></button>
+</div>
+<!-- MAIN CIRCUIT CANVAS (2D Schematic CAD View) -->
+<div class="flex-1 relative canvas-grid overflow-hidden flex items-center justify-center p-6">
+<!-- Circuit Schematic Container -->
+<div class="relative w-[780px] h-[360px] bg-transparent">
+<!-- Wires Layer (Pure SVG Vector CAD Wire Paths) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg">
+<!-- Wire from L to U1 Pin A -->
+<path d="M 120 70 L 270 70 L 270 95 L 300 95" fill="none" stroke="#10b981" stroke-width="2.5"></path>
+<!-- Wire from R to U1 Pin B -->
+<path d="M 120 150 L 270 150 L 270 125 L 300 125" fill="none" stroke="#10b981" stroke-width="2.5"></path>
+<!-- Output from U1 to U2 Pin A -->
+<path d="M 370 110 L 460 110 L 460 165 L 490 165" fill="none" stroke="#10b981" stroke-width="2.5"></path>
+<!-- Wire from LC to U2 Pin B -->
+<path d="M 120 250 L 450 250 L 450 195 L 490 195" fill="none" stroke="#10b981" stroke-width="2.5"></path>
+<!-- Final Collision Hazard Output from U2 to Buzzer & Red LED -->
+<path d="M 560 180 L 640 180" fill="none" stroke="#10b981" stroke-width="2.5"></path>
+<!-- Branch to Buzzer -->
+<path d="M 640 180 L 640 120 L 670 120" fill="none" stroke="#10b981" stroke-width="2.5"></path>
+<!-- Branch to Hazard LED -->
+<path d="M 640 180 L 640 240 L 670 240" fill="none" stroke="#10b981" stroke-width="2.5"></path>
+<!-- Solder Junction Dots -->
+<circle cx="270" cy="95" fill="#10b981" r="3.5"></circle>
+<circle cx="270" cy="125" fill="#10b981" r="3.5"></circle>
+<circle cx="460" cy="165" fill="#10b981" r="3.5"></circle>
+<circle cx="450" cy="195" fill="#10b981" r="3.5"></circle>
+<circle cx="640" cy="180" fill="#10b981" r="4"></circle>
+</svg>
+<!-- INPUT COMPONENT: [L] Left Radar Sensor -->
+<div class="absolute left-4 top-10 flex items-center space-x-2 z-10">
+<div class="bg-surface-container-lowest border-2 border-on-background px-2.5 py-1.5 rounded shadow-sm flex items-center space-x-2">
+<span class="font-code-value text-body-sm font-bold text-on-surface">RADAR_L [L]</span>
+<button class="w-6 h-6 rounded bg-primary-container text-on-primary-container font-code-value font-bold text-body-sm flex items-center justify-center shadow-inner cursor-pointer" title="Click to Toggle">1</button>
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container ring-2 ring-primary-container/40"></div>
+</div>
+<!-- INPUT COMPONENT: [R] Right Radar Sensor -->
+<div class="absolute left-4 top-32 flex items-center space-x-2 z-10">
+<div class="bg-surface-container-lowest border-2 border-on-background px-2.5 py-1.5 rounded shadow-sm flex items-center space-x-2">
+<span class="font-code-value text-body-sm font-bold text-on-surface">RADAR_R [R]</span>
+<button class="w-6 h-6 rounded bg-primary-container text-on-primary-container font-code-value font-bold text-body-sm flex items-center justify-center shadow-inner cursor-pointer" title="Click to Toggle">1</button>
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container ring-2 ring-primary-container/40"></div>
+</div>
+<!-- INPUT COMPONENT: [LC] Lane Change Lever -->
+<div class="absolute left-4 top-56 flex items-center space-x-2 z-10">
+<div class="bg-surface-container-lowest border-2 border-on-background px-2.5 py-1.5 rounded shadow-sm flex items-center space-x-2">
+<span class="font-code-value text-body-sm font-bold text-on-surface">LEVER_LC [LC]</span>
+<button class="w-6 h-6 rounded bg-primary-container text-on-primary-container font-code-value font-bold text-body-sm flex items-center justify-center shadow-inner cursor-pointer" title="Click to Toggle">1</button>
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container ring-2 ring-primary-container/40"></div>
+</div>
+<!-- GATE U1: First AND Gate (L · R) -->
+<div class="absolute left-[300px] top-[75px] z-10 bg-surface-container-lowest border-2 border-on-background rounded-r-full p-2.5 w-20 h-18 shadow-sm flex flex-col justify-center items-center">
+<span class="font-code-value text-[11px] font-bold text-on-surface">AND (U1)</span>
+<span class="font-code-value text-[9px] text-primary">L · R = 1</span>
+</div>
+<!-- GATE U2: Selected Decision AND Gate (Collision Logic) -->
+<div class="absolute left-[490px] top-[145px] z-10 bg-surface-container-lowest border-2 border-primary-container rounded-r-full p-3 w-22 h-20 shadow-md ring-2 ring-primary-container/30 flex flex-col justify-center items-center cursor-pointer">
+<span class="font-code-value text-[11px] font-bold text-on-surface">AND (U2)</span>
+<span class="font-code-value text-[9px] font-semibold text-primary">(L·R)·LC</span>
+<span class="text-[9px] px-1 bg-primary-container text-on-primary-container rounded font-code-value mt-0.5">OUT: 1</span>
+</div>
+<!-- OUTPUT COMPONENT 1: Audio Buzzer Chime -->
+<div class="absolute left-[670px] top-[96px] flex items-center space-x-2 z-10">
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container ring-2 ring-primary-container/40"></div>
+<div class="bg-surface-container-lowest border-2 border-on-background px-3 py-1.5 rounded shadow-sm flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary-container animate-pulse">volume_up</span>
+<div>
+<div class="font-code-value text-body-sm font-bold text-on-surface">BUZZER_85dB</div>
+<div class="text-[10px] font-code-value text-primary font-semibold">PULSING [HIGH]</div>
+</div>
+</div>
+</div>
+<!-- OUTPUT COMPONENT 2: Hazard Alert LED -->
+<div class="absolute left-[670px] top-[216px] flex items-center space-x-2 z-10">
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container ring-2 ring-primary-container/40"></div>
+<div class="bg-surface-container-lowest border-2 border-tertiary px-3 py-1.5 rounded shadow-md flex items-center space-x-2 ring-2 ring-tertiary/20">
+<span class="w-4 h-4 rounded-full bg-tertiary shadow-[0_0_8px_#ef4444] animate-ping"></span>
+<div>
+<div class="font-code-value text-body-sm font-bold text-tertiary">HAZARD_LED</div>
+<div class="text-[10px] font-code-value text-on-surface font-semibold">BLIND-SPOT WARNING</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM TABBED ANALYSIS DOCK (Height: ~210px) -->
+<footer class="h-52 bg-inverse-surface border-t border-outline flex flex-col shrink-0 z-20">
+<!-- Tab Headers -->
+<div class="flex items-center border-b border-outline/50 bg-[#1e2328] px-2 text-label-md font-label-md">
+<button class="px-3 py-1.5 text-inverse-on-surface bg-inverse-surface border-t-2 border-primary-container font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px]">table_chart</span> Truth Table
+          </button>
+<button class="px-3 py-1.5 text-outline-variant hover:text-inverse-on-surface flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[15px]">calculate</span> Boolean Expression
+          </button>
+<button class="px-3 py-1.5 text-outline-variant hover:text-inverse-on-surface flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[15px]">grid_4x4</span> K-Map (SOP)
+          </button>
+<button class="px-3 py-1.5 text-outline-variant hover:text-inverse-on-surface flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[15px]">directions_car</span> Vehicle Blind-Spot HUD
+          </button>
+<button class="px-3 py-1.5 text-outline-variant hover:text-inverse-on-surface flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[15px]">developer_board</span> Arduino Hardware (COM3)
+          </button>
+<div class="ml-auto flex items-center pr-2 text-outline-variant">
+<span class="text-body-sm font-code-value mr-3 text-primary-container">Clock: 500 Hz (Stable)</span>
+<button class="hover:text-inverse-on-surface"><span class="material-symbols-outlined text-[16px]">expand_more</span></button>
+</div>
+</div>
+<!-- Dock Content Split: Truth Table + Boolean Badge + Vehicle HUD -->
+<div class="flex-1 flex overflow-hidden p-3 gap-4">
+<!-- Left: Standard Academic 3-Input Truth Table -->
+<div class="w-72 bg-[#1e2328] border border-outline/40 rounded flex flex-col overflow-hidden">
+<div class="grid grid-cols-4 bg-on-surface-variant/30 text-inverse-on-surface font-code-value text-body-sm font-bold p-1 text-center border-b border-outline/40">
+<div>L</div>
+<div>R</div>
+<div>LC</div>
+<div class="text-primary-container">Y (Hazard)</div>
+</div>
+<div class="flex-1 overflow-y-auto text-body-sm font-code-value">
+<div class="grid grid-cols-4 text-center py-0.5 text-outline-variant hover:bg-surface-variant/10">
+<div>0</div><div>0</div><div>0</div><div class="text-slate-400">0</div>
+</div>
+<div class="grid grid-cols-4 text-center py-0.5 text-outline-variant hover:bg-surface-variant/10">
+<div>0</div><div>0</div><div>1</div><div class="text-slate-400">0</div>
+</div>
+<div class="grid grid-cols-4 text-center py-0.5 text-outline-variant hover:bg-surface-variant/10">
+<div>0</div><div>1</div><div>0</div><div class="text-slate-400">0</div>
+</div>
+<div class="grid grid-cols-4 text-center py-0.5 text-outline-variant hover:bg-surface-variant/10">
+<div>0</div><div>1</div><div>1</div><div class="text-slate-400">0</div>
+</div>
+<div class="grid grid-cols-4 text-center py-0.5 text-outline-variant hover:bg-surface-variant/10">
+<div>1</div><div>0</div><div>0</div><div class="text-slate-400">0</div>
+</div>
+<div class="grid grid-cols-4 text-center py-0.5 text-outline-variant hover:bg-surface-variant/10">
+<div>1</div><div>0</div><div>1</div><div class="text-slate-400">0</div>
+</div>
+<div class="grid grid-cols-4 text-center py-0.5 text-outline-variant hover:bg-surface-variant/10">
+<div>1</div><div>1</div><div>0</div><div class="text-slate-400">0</div>
+</div>
+<!-- Active Highlighted State -->
+<div class="grid grid-cols-4 text-center py-0.5 bg-primary-container/20 text-inverse-on-surface font-bold border-l-2 border-primary-container">
+<div class="text-primary-container">1</div>
+<div class="text-primary-container">1</div>
+<div class="text-primary-container">1</div>
+<div class="text-primary-container">1 [ACTIVE]</div>
+</div>
+</div>
+</div>
+<!-- Middle: Boolean Expression & Math Derivation -->
+<div class="flex-1 bg-[#1e2328] border border-outline/40 rounded p-3 flex flex-col justify-between">
+<div>
+<div class="text-label-sm font-label-sm uppercase tracking-wider text-outline-variant mb-1">BOOLEAN DERIVATION</div>
+<div class="bg-surface-variant/10 p-2 rounded border border-outline/20 mb-2">
+<span class="font-code-value text-body-lg text-primary-container font-bold">Y = (L · R) · LC</span>
+</div>
+<p class="font-code-value text-body-sm text-outline-variant">
+                Output Y triggers high if and only if both Left &amp; Right sensors detect obstacle presence concurrently with lane change intention.
+              </p>
+</div>
+<div class="flex items-center gap-2 pt-2 border-t border-outline/30 text-body-sm font-code-value text-inverse-on-surface">
+<span class="px-2 py-0.5 bg-primary-container/30 text-primary-container rounded">Minterm: m7</span>
+<span class="text-outline-variant">SOP Canonical: Y = Σm(7)</span>
+</div>
+</div>
+<!-- Right: Vehicle Blind-Spot Mini Preview HUD -->
+<div class="w-80 bg-[#1e2328] border border-outline/40 rounded p-2 flex flex-col">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-outline-variant">VEHICLE ROAD HUD</span>
+<span class="text-[10px] font-code-value px-1.5 py-0.2 bg-tertiary-container text-on-tertiary-container font-bold rounded">HAZARD</span>
+</div>
+<!-- Mini 3-Lane Road Visual -->
+<div class="flex-1 bg-[#161c24] rounded relative flex items-center justify-around px-4 border border-outline/30 overflow-hidden">
+<!-- Lane Dividers (Dashed lines) -->
+<div class="absolute left-1/3 top-0 bottom-0 border-r border-dashed border-outline/40"></div>
+<div class="absolute left-2/3 top-0 bottom-0 border-r border-dashed border-outline/40"></div>
+<!-- Left Blind Spot Threat Car -->
+<div class="flex flex-col items-center z-10">
+<div class="w-7 h-11 bg-tertiary rounded flex items-center justify-center text-[10px] font-bold text-white shadow-sm ring-2 ring-tertiary">
+                  TH1
+                </div>
+<span class="text-[9px] font-code-value text-tertiary mt-0.5">Left IR [1]</span>
+</div>
+<!-- Ego Car (Our vehicle) with Indicator Arrow -->
+<div class="flex flex-col items-center z-10">
+<div class="w-8 h-13 bg-primary-container rounded flex flex-col items-center justify-center text-[10px] font-bold text-on-primary-container shadow-md">
+<span>EGO</span>
+<span class="text-[9px] animate-pulse">◀ TURN</span>
+</div>
+<span class="text-[9px] font-code-value text-primary-container mt-0.5">LC=1</span>
+</div>
+<!-- Right Blind Spot Threat Car -->
+<div class="flex flex-col items-center z-10">
+<div class="w-7 h-11 bg-tertiary rounded flex items-center justify-center text-[10px] font-bold text-white shadow-sm ring-2 ring-tertiary">
+                  TH2
+                </div>
+<span class="text-[9px] font-code-value text-tertiary mt-0.5">Right IR [1]</span>
+</div>
+</div>
+<div class="mt-1 text-center">
+<span class="font-code-value text-[11px] text-tertiary-container font-bold">⚠️ CRITICAL: COLLISION PREVENTED</span>
+</div>
+</div>
+</div>
+</footer>
+</main>
+<!-- RIGHT PANEL: COMPONENT PROPERTIES -->
+<aside class="w-60 bg-inverse-surface border-l border-outline flex flex-col justify-between shrink-0 select-none z-20">
+<!-- Properties Title -->
+<div class="p-3 border-b border-outline/50">
+<div class="flex items-center space-x-1.5 mb-1">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 16px;">tune</span>
+<span class="text-label-sm font-label-sm font-bold text-inverse-on-surface tracking-wider">PROPERTIES</span>
+</div>
+<div class="font-code-value text-body-sm text-primary-container font-semibold">AND Gate (Collision Logic)</div>
+</div>
+<!-- Properties Fields Form -->
+<div class="flex-1 overflow-y-auto p-3 space-y-3 font-code-value text-body-sm">
+<div>
+<label class="block text-outline-variant text-[11px] uppercase mb-1">Gate Label</label>
+<input class="w-full bg-[#1e2328] border border-outline/40 rounded px-2 py-1 text-inverse-on-surface font-code-value text-body-sm focus:border-primary-container focus:outline-none" type="text" value="U2_COLLISION_AND"/>
+</div>
+<div>
+<label class="block text-outline-variant text-[11px] uppercase mb-1">Input Pin Count</label>
+<input class="w-full bg-[#1e2328] border border-outline/40 rounded px-2 py-1 text-inverse-on-surface font-code-value text-body-sm" readonly="" type="number" value="2"/>
+</div>
+<!-- Pin Values Readout -->
+<div class="bg-[#1e2328] p-2 rounded border border-outline/30 space-y-1">
+<div class="text-[10px] text-outline-variant uppercase font-bold mb-1">PIN STATUS MONITOR</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-inverse-on-surface">Pin 1 (IN_A):</span>
+<span class="text-primary-container font-bold">1 [HIGH]</span>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-inverse-on-surface">Pin 2 (IN_B):</span>
+<span class="text-primary-container font-bold">1 [HIGH]</span>
+</div>
+<div class="flex justify-between items-center text-body-sm pt-1 border-t border-outline/20">
+<span class="text-inverse-on-surface font-bold">Pin 3 (OUT):</span>
+<span class="text-primary-container font-bold">1 [ACTIVE]</span>
+</div>
+</div>
+<div>
+<label class="block text-outline-variant text-[11px] uppercase mb-1">Propagation Delay</label>
+<input class="w-full bg-[#1e2328] border border-outline/40 rounded px-2 py-1 text-inverse-on-surface font-code-value text-body-sm" readonly="" type="text" value="10 ns (Ideal)"/>
+</div>
+<div>
+<label class="block text-outline-variant text-[11px] uppercase mb-1">Orientation</label>
+<select class="w-full bg-[#1e2328] border border-outline/40 rounded px-2 py-1 text-inverse-on-surface font-code-value text-body-sm focus:border-primary-container focus:outline-none">
+<option>EAST (0°)</option>
+<option>SOUTH (90°)</option>
+<option>WEST (180°)</option>
+<option>NORTH (270°)</option>
+</select>
+</div>
+</div>
+<!-- Properties Action Buttons -->
+<div class="p-3 border-t border-outline/50 space-y-2">
+<button class="w-full py-1.5 bg-surface-variant/20 hover:bg-surface-variant/30 text-inverse-on-surface rounded font-label-md text-label-md font-semibold transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">sync</span> Toggle State
+        </button>
+<button class="w-full py-1.5 bg-tertiary text-on-tertiary hover:bg-tertiary/90 rounded font-label-md text-label-md font-semibold transition-colors flex items-center justify-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">delete</span> Delete Component
+        </button>
+</div>
+</aside>
+</div>
+</body></html>

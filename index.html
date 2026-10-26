@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Circuit Link — Blind-Spot Warning System</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/src/styles/main.css" />
+<link rel="stylesheet" href="/src/styles/panels.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TOP NAVIGATION BAR
+════════════════════════════════════════════════════════════ -->
+<header class="top-bar">
+  <!-- Left: Logo + Nav -->
+  <div class="top-bar-left">
+    <div class="brand">
+      <span class="brand-badge">CL</span>
+      <span class="brand-name">Circuit Link</span>
+      <span class="brand-sub">/ Blind-Spot System</span>
+    </div>
+    <nav class="top-nav">
+      <button class="nav-btn" id="nav-project">Project <span class="caret">▾</span></button>
+      <button class="nav-btn nav-btn-active" id="nav-circuit">Circuit <span class="caret">▾</span></button>
+      <button class="nav-btn" id="nav-tools">Tools <span class="caret">▾</span></button>
+      <button class="nav-btn" id="nav-presets">Presets <span class="caret">▾</span></button>
+      <button class="nav-btn" id="nav-help">Help <span class="caret">▾</span></button>
+    </nav>
+  </div>
+
+  <!-- Center: Project file badge -->
+  <div class="top-bar-center">
+    <span class="material-symbols-outlined file-icon">schema</span>
+    <input type="text" id="project-name" class="project-name-input" value="Blind-Spot System" />
+    <span class="save-dot" title="Saved"></span>
+  </div>
+
+  <!-- Right: Mode switch + Arduino + Preset button -->
+  <div class="top-bar-right">
+    <div class="mode-switch">
+      <button class="mode-btn mode-btn-active" id="btn-sim-mode">Simulation Mode</button>
+      <button class="mode-btn" id="btn-hw-mode">Hardware (Arduino)</button>
+    </div>
+    <div class="arduino-badge" id="arduino-badge">
+      <span class="arduino-dot" id="arduino-dot"></span>
+      <span id="arduino-label">Disconnected</span>
+    </div>
+    <button class="btn-preset" id="btn-preset">⚡ Blind-Spot Preset</button>
+    <div class="top-icons">
+      <button class="icon-btn" id="btn-connect-serial" title="Connect Arduino (USB Serial)">
+        <span class="material-symbols-outlined">usb</span>
+      </button>
+      <button class="icon-btn" title="Settings">
+        <span class="material-symbols-outlined">settings</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Dropdown menus (hidden by default) -->
+<div class="dropdown-menu" id="dropdown-project">
+  <div class="dropdown-item" id="dd-save">💾 Save Circuit</div>
+  <div class="dropdown-item" id="dd-load">📂 Load Circuit</div>
+  <div class="dropdown-divider"></div>
+  <div class="dropdown-item" id="dd-clear">⊡ Clear Canvas</div>
+</div>
+<div class="dropdown-menu" id="dropdown-presets">
+  <div class="dropdown-item" id="dd-preset">⚡ Load Blind-Spot Warning System</div>
+  <div class="dropdown-divider"></div>
+  <div class="dropdown-item dropdown-muted">More presets coming soon…</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     WORKBENCH: 3-PANE LAYOUT
+════════════════════════════════════════════════════════════ -->
+<div class="workbench">
+
+  <!-- ─── LEFT PANEL: CIRCUIT ELEMENTS ─── -->
+  <aside class="panel-left">
+    <div class="panel-header">
+      <div class="panel-header-title">
+        <span class="material-symbols-outlined panel-header-icon">device_hub</span>
+        <span>CIRCUIT ELEMENTS</span>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="panel-search-wrap">
+      <input type="text" id="component-search" class="panel-search" placeholder="Search components..." />
+      <span class="material-symbols-outlined panel-search-icon">search</span>
+    </div>
+
+    <!-- Component Accordion -->
+    <div class="accordion" id="toolbar-components">
+
+      <div class="accordion-group" data-group="inputs">
+        <div class="accordion-header">
+          <span class="material-symbols-outlined acc-icon">input</span>
+          <span>Input</span>
+          <span class="acc-caret">▸</span>
+        </div>
+        <div class="accordion-body">
+          <div class="comp-tile" draggable="true" data-type="INPUT">
+            <span class="comp-dot"></span> Toggle Switch
+            <span class="comp-bit">1-bit</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="BUTTON">
+            <span class="comp-dot"></span> Push Button
+            <span class="comp-bit">1-bit</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="CLOCK">
+            <span class="comp-dot"></span> Pulse Clock
+            <span class="comp-bit">clk</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-group" data-group="output">
+        <div class="accordion-header">
+          <span class="material-symbols-outlined acc-icon">output</span>
+          <span>Output</span>
+          <span class="acc-caret">▸</span>
+        </div>
+        <div class="accordion-body">
+          <div class="comp-tile" draggable="true" data-type="LED">
+            <span class="comp-dot comp-dot-out"></span> LED Indicator
+            <span class="comp-bit">1-bit</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="OUTPUT">
+            <span class="comp-dot comp-dot-out"></span> Logic Probe
+            <span class="comp-bit">1-bit</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="BUZZER">
+            <span class="comp-dot comp-dot-out"></span> Buzzer
+            <span class="comp-bit">audio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-group" data-group="gates">
+        <div class="accordion-header">
+          <span class="material-symbols-outlined acc-icon">device_hub</span>
+          <span>Gates (AND, OR, NOT…)</span>
+          <span class="acc-caret">▸</span>
+        </div>
+        <div class="accordion-body">
+          <div class="comp-tile" draggable="true" data-type="AND">
+            <span class="comp-dot comp-dot-gate"></span> AND Gate
+            <span class="comp-bit">2-in</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="OR">
+            <span class="comp-dot comp-dot-gate"></span> OR Gate
+            <span class="comp-bit">2-in</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="NOT">
+            <span class="comp-dot comp-dot-gate"></span> NOT Inverter
+            <span class="comp-bit">1-in</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="NAND">
+            <span class="comp-dot comp-dot-gate"></span> NAND Gate
+            <span class="comp-bit">2-in</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="NOR">
+            <span class="comp-dot comp-dot-gate"></span> NOR Gate
+            <span class="comp-bit">2-in</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="XOR">
+            <span class="comp-dot comp-dot-gate"></span> XOR Gate
+            <span class="comp-bit">2-in</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="XNOR">
+            <span class="comp-dot comp-dot-gate"></span> XNOR Gate
+            <span class="comp-bit">2-in</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-group" data-group="plexers">
+        <div class="accordion-header">
+          <span class="material-symbols-outlined acc-icon">schema</span>
+          <span>Decoders &amp; Plexers</span>
+          <span class="acc-caret">▸</span>
+        </div>
+        <div class="accordion-body">
+          <div class="comp-tile" draggable="true" data-type="MUX2">
+            <span class="comp-dot comp-dot-gate"></span> 2:1 Multiplexer
+            <span class="comp-bit">MUX</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="MUX4">
+            <span class="comp-dot comp-dot-gate"></span> 4:1 Multiplexer
+            <span class="comp-bit">MUX</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="DEMUX1_2">
+            <span class="comp-dot comp-dot-gate"></span> 1:2 Demux
+            <span class="comp-bit">DEMUX</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="DEMUX1_4">
+            <span class="comp-dot comp-dot-gate"></span> 1:4 Demux
+            <span class="comp-bit">DEMUX</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="DECODER2_4">
+            <span class="comp-dot comp-dot-gate"></span> 2:4 Decoder
+            <span class="comp-bit">DEC</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="ENCODER4_2">
+            <span class="comp-dot comp-dot-gate"></span> 4:2 Priority Enc
+            <span class="comp-bit">ENC</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="COMPARATOR">
+            <span class="comp-dot comp-dot-gate"></span> 1-Bit Comparator
+            <span class="comp-bit">CMP</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-group" data-group="arithmetic">
+        <div class="accordion-header">
+          <span class="material-symbols-outlined acc-icon">calculate</span>
+          <span>Arithmetic &amp; Logic</span>
+          <span class="acc-caret">▸</span>
+        </div>
+        <div class="accordion-body">
+          <div class="comp-tile" draggable="true" data-type="HALF_ADDER">
+            <span class="comp-dot comp-dot-gate"></span> Half Adder
+            <span class="comp-bit">ADD</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="FULL_ADDER">
+            <span class="comp-dot comp-dot-gate"></span> Full Adder
+            <span class="comp-bit">ADD</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="HALF_SUBTRACTOR">
+            <span class="comp-dot comp-dot-gate"></span> Half Subtractor
+            <span class="comp-bit">SUB</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="FULL_SUBTRACTOR">
+            <span class="comp-dot comp-dot-gate"></span> Full Subtractor
+            <span class="comp-bit">SUB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-group" data-group="sequential">
+        <div class="accordion-header">
+          <span class="material-symbols-outlined acc-icon">memory</span>
+          <span>Flip-Flops &amp; Memory</span>
+          <span class="acc-caret">▸</span>
+        </div>
+        <div class="accordion-body">
+          <div class="comp-tile" draggable="true" data-type="DFF">
+            <span class="comp-dot comp-dot-gate"></span> D Flip-Flop
+            <span class="comp-bit">D-FF</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="JKFF">
+            <span class="comp-dot comp-dot-gate"></span> JK Flip-Flop
+            <span class="comp-bit">JK-FF</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="TFF">
+            <span class="comp-dot comp-dot-gate"></span> T Flip-Flop
+            <span class="comp-bit">T-FF</span>
+          </div>
+          <div class="comp-tile" draggable="true" data-type="SR_LATCH">
+            <span class="comp-dot comp-dot-gate"></span> SR Latch
+            <span class="comp-bit">SR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Smart Sensors group — always expanded with accent border -->
+      <div class="accordion-group accordion-group-accent" data-group="sensors">
+        <div class="accordion-header accordion-header-accent">
+          <span class="material-symbols-outlined acc-icon">sensors</span>
+          <span>Smart Sensors</span>
+          <span class="acc-caret acc-caret-open">▾</span>
+        </div>
+        <div class="accordion-body accordion-body-open">
+          <div class="comp-tile comp-tile-sensor" draggable="true" data-type="INPUT" data-label="L">
+            <span class="comp-dot comp-dot-sensor"></span> Left Sensor [L]
+            <span class="comp-bit comp-bit-sensor">HW</span>
+          </div>
+          <div class="comp-tile comp-tile-sensor" draggable="true" data-type="INPUT" data-label="R">
+            <span class="comp-dot comp-dot-sensor"></span> Right Sensor [R]
+            <span class="comp-bit comp-bit-sensor">HW</span>
+          </div>
+          <div class="comp-tile comp-tile-sensor" draggable="true" data-type="INPUT" data-label="IL">
+            <span class="comp-dot comp-dot-sensor"></span> Left Indicator [IL]
+            <span class="comp-bit comp-bit-sensor">SW</span>
+          </div>
+          <div class="comp-tile comp-tile-sensor" draggable="true" data-type="INPUT" data-label="IR">
+            <span class="comp-dot comp-dot-sensor"></span> Right Indicator [IR]
+            <span class="comp-bit comp-bit-sensor">SW</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /accordion -->
+
+    <!-- Footer shortcuts -->
+    <div class="panel-footer">
+      <div class="shortcut-row"><span class="shortcut-key">Del</span> Delete selected</div>
+      <div class="shortcut-row"><span class="shortcut-key">Esc</span> Deselect / cancel wire</div>
+      <div class="shortcut-row"><span class="shortcut-key">Scroll</span> Zoom in / out</div>
+      <div class="shortcut-row"><span class="shortcut-key">Alt+Drag</span> Pan canvas</div>
+      <div class="shortcut-row"><span class="shortcut-key">Dbl-click</span> Logic probe</div>
+      <div class="shortcut-row"><span class="shortcut-key">Ctrl+Z / Y</span> Undo / Redo</div>
+      <div class="shortcut-row"><span class="shortcut-key">Ctrl+0</span> Reset view</div>
+    </div>
+  </aside>
+
+  <!-- ─── CENTER: CANVAS + FLOATING TOOLBAR ─── -->
+  <main class="canvas-area">
+
+    <!-- Floating CAD toolbar -->
+    <div class="cad-toolbar">
+      <button class="cad-btn" id="btn-save" title="Save (Ctrl+S)">
+        <span class="material-symbols-outlined">save</span>
+      </button>
+      <button class="cad-btn" id="btn-load-file" title="Load Circuit">
+        <span class="material-symbols-outlined">upload_file</span>
+      </button>
+      <div class="cad-divider"></div>
+      <button class="cad-btn" id="btn-undo" title="Undo (Ctrl+Z)" disabled>
+        <span class="material-symbols-outlined">undo</span>
+      </button>
+      <button class="cad-btn" id="btn-redo" title="Redo (Ctrl+Y)" disabled>
+        <span class="material-symbols-outlined">redo</span>
+      </button>
+      <div class="cad-divider"></div>
+      <!-- Clock controls -->
+      <button class="cad-btn" id="btn-clock-step" title="Clock Step (Toggle CLK)">
+        <span class="material-symbols-outlined">skip_next</span>
+      </button>
+      <button class="cad-btn" id="btn-clock-play" title="Auto Clock (Start / Pause)">
+        <span class="material-symbols-outlined" id="icon-clock-play">play_arrow</span>
+      </button>
+      <button class="cad-btn" id="btn-clock-reset" title="Reset Clock &amp; Sequential State">
+        <span class="material-symbols-outlined">restart_alt</span>
+      </button>
+      <div class="cad-divider"></div>
+      <!-- Zoom -->
+      <span class="cad-zoom-label">−</span>
+      <input type="range" class="cad-zoom-slider" id="zoom-slider" min="20" max="300" value="100" />
+      <span class="cad-zoom-label">+</span>
+      <button class="cad-zoom-pct" id="btn-reset-view">100%</button>
+      <div class="cad-divider"></div>
+      <button class="cad-btn cad-btn-danger" id="btn-clear" title="Clear Canvas">
+        <span class="material-symbols-outlined">delete</span>
+      </button>
+    </div>
+
+    <!-- Circuit canvas -->
+    <canvas id="circuit-canvas" class="circuit-canvas"></canvas>
+
+    <div id="canvas-hint" class="canvas-hint" style="display:none">
+      <span class="material-symbols-outlined canvas-hint-icon">drag_indicator</span>
+      <p>Drag components from the left panel onto the canvas, or click <strong>⚡ Blind-Spot Preset</strong> to start.</p>
+      <p class="canvas-hint-sub">Use CAD toolbar buttons above for manual clock steps or auto simulation.</p>
+    </div>
+
+
+
+  </main>
+
+  <!-- ─── RIGHT PANEL: PROPERTIES ─── -->
+  <aside class="panel-right">
+    <div class="panel-header">
+      <div class="panel-header-title">
+        <span class="material-symbols-outlined panel-header-icon">tune</span>
+        <span>PROPERTIES</span>
+      </div>
+    </div>
+    <div id="props-content" class="props-content">
+      <div class="props-empty">
+        <span class="material-symbols-outlined props-empty-icon">touch_app</span>
+        <p>Click a component on the canvas to inspect it.</p>
+      </div>
+    </div>
+  </aside>
+
+</div><!-- /workbench -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     BOTTOM ANALYSIS DOCK
+════════════════════════════════════════════════════════════ -->
+<section class="bottom-dock">
+  <!-- Tab bar -->
+  <div class="dock-tabs">
+    <button class="dock-tab dock-tab-active" data-tab="tt">
+      <span class="material-symbols-outlined">table_chart</span> Truth Table
+    </button>
+    <button class="dock-tab" data-tab="bool">
+      <span class="material-symbols-outlined">calculate</span> Boolean Expression
+    </button>
+    <button class="dock-tab" data-tab="kmap">
+      <span class="material-symbols-outlined">grid_4x4</span> K-Map (SOP)
+    </button>
+    <button class="dock-tab" data-tab="wave">
+      <span class="material-symbols-outlined">show_chart</span> Waveforms
+    </button>
+    <button class="dock-tab" data-tab="viz">
+      <span class="material-symbols-outlined">directions_car</span> Vehicle Blind-Spot HUD
+    </button>
+    <button class="dock-tab" data-tab="hw">
+      <span class="material-symbols-outlined">developer_board</span> Arduino Hardware
+    </button>
+    <button class="dock-tab" data-tab="console">
+      <span class="material-symbols-outlined">terminal</span> Console
+    </button>
+    <div class="dock-tabs-right">
+      <span class="dock-status-text" id="dock-status">● Simulation Mode</span>
+      <button class="dock-expand-btn" id="dock-toggle" title="Expand/Collapse dock">
+        <span class="material-symbols-outlined">expand_less</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab panels -->
+  <div class="dock-content">
+    <div id="panel-tt"      class="dock-panel dock-panel-active"></div>
+    <div id="panel-bool"    class="dock-panel"></div>
+    <div id="panel-kmap"    class="dock-panel"></div>
+    <div id="panel-wave"    class="dock-panel"></div>
+    <div id="panel-viz"     class="dock-panel panel-viz-canvas"></div>
+    <div id="panel-hw"      class="dock-panel"></div>
+    <div id="panel-console" class="dock-panel dock-console"></div>
+  </div>
+</section>
+
+<!-- Context menu -->
+<div class="ctx-menu" id="ctx-menu" style="display:none"></div>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "smart-logic-lab",
+  "version": "1.0.0",
+  "description": "Smart Blind-Spot Warning & Collision Prevention — Digital Logic Simulation Platform",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui"
+  },
+  "devDependencies": {
+    "@types/dom-serial": "^1.0.6",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.0",
+    "vitest": "^1.6.0"
+  }
+}

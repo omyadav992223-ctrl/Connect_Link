@@ -1,0 +1,536 @@
+{
+  "version": "1.0",
+  "name": "Blind-Spot Directional Warning",
+  "components": [
+    {
+      "id": "comp_1792610898543_0",
+      "type": "INPUT",
+      "label": "L",
+      "position": {
+        "x": 60,
+        "y": 60
+      },
+      "size": {
+        "width": 60,
+        "height": 40
+      },
+      "inputPorts": [],
+      "outputPorts": [
+        {
+          "id": "out",
+          "name": "Q",
+          "direction": "output",
+          "value": 0
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_1",
+      "type": "INPUT",
+      "label": "R",
+      "position": {
+        "x": 60,
+        "y": 180
+      },
+      "size": {
+        "width": 60,
+        "height": 40
+      },
+      "inputPorts": [],
+      "outputPorts": [
+        {
+          "id": "out",
+          "name": "Q",
+          "direction": "output",
+          "value": 0
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_2",
+      "type": "INPUT",
+      "label": "IL",
+      "position": {
+        "x": 60,
+        "y": 300
+      },
+      "size": {
+        "width": 60,
+        "height": 40
+      },
+      "inputPorts": [],
+      "outputPorts": [
+        {
+          "id": "out",
+          "name": "Q",
+          "direction": "output",
+          "value": 0
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_3",
+      "type": "INPUT",
+      "label": "IR",
+      "position": {
+        "x": 60,
+        "y": 420
+      },
+      "size": {
+        "width": 60,
+        "height": 40
+      },
+      "inputPorts": [],
+      "outputPorts": [
+        {
+          "id": "out",
+          "name": "Q",
+          "direction": "output",
+          "value": 0
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_4",
+      "type": "AND",
+      "label": "AND_WL",
+      "position": {
+        "x": 240,
+        "y": 80
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "inputPorts": [
+        {
+          "id": "in_A",
+          "name": "A",
+          "direction": "input",
+          "value": "X"
+        },
+        {
+          "id": "in_B",
+          "name": "B",
+          "direction": "input",
+          "value": "X"
+        }
+      ],
+      "outputPorts": [
+        {
+          "id": "out_Y",
+          "name": "Y",
+          "direction": "output",
+          "value": "X"
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_5",
+      "type": "AND",
+      "label": "AND_WR",
+      "position": {
+        "x": 240,
+        "y": 340
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "inputPorts": [
+        {
+          "id": "in_A",
+          "name": "A",
+          "direction": "input",
+          "value": "X"
+        },
+        {
+          "id": "in_B",
+          "name": "B",
+          "direction": "input",
+          "value": "X"
+        }
+      ],
+      "outputPorts": [
+        {
+          "id": "out_Y",
+          "name": "Y",
+          "direction": "output",
+          "value": "X"
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_6",
+      "type": "OR",
+      "label": "OR_ALERT",
+      "position": {
+        "x": 240,
+        "y": 200
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "inputPorts": [
+        {
+          "id": "in_A",
+          "name": "A",
+          "direction": "input",
+          "value": "X"
+        },
+        {
+          "id": "in_B",
+          "name": "B",
+          "direction": "input",
+          "value": "X"
+        }
+      ],
+      "outputPorts": [
+        {
+          "id": "out_Y",
+          "name": "Y",
+          "direction": "output",
+          "value": "X"
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_7",
+      "type": "NOT",
+      "label": "NOT_SAFE",
+      "position": {
+        "x": 400,
+        "y": 260
+      },
+      "size": {
+        "width": 60,
+        "height": 50
+      },
+      "inputPorts": [
+        {
+          "id": "in_A",
+          "name": "A",
+          "direction": "input",
+          "value": "X"
+        }
+      ],
+      "outputPorts": [
+        {
+          "id": "out_Y",
+          "name": "Y",
+          "direction": "output",
+          "value": "X"
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_8",
+      "type": "OR",
+      "label": "OR_BUZZ",
+      "position": {
+        "x": 400,
+        "y": 140
+      },
+      "size": {
+        "width": 80,
+        "height": 60
+      },
+      "inputPorts": [
+        {
+          "id": "in_A",
+          "name": "A",
+          "direction": "input",
+          "value": "X"
+        },
+        {
+          "id": "in_B",
+          "name": "B",
+          "direction": "input",
+          "value": "X"
+        }
+      ],
+      "outputPorts": [
+        {
+          "id": "out_Y",
+          "name": "Y",
+          "direction": "output",
+          "value": "X"
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_9",
+      "type": "LED",
+      "label": "W_L",
+      "position": {
+        "x": 560,
+        "y": 80
+      },
+      "size": {
+        "width": 50,
+        "height": 50
+      },
+      "inputPorts": [
+        {
+          "id": "in",
+          "name": "in",
+          "direction": "input",
+          "value": "X"
+        }
+      ],
+      "outputPorts": [
+        {
+          "id": "out",
+          "name": "Q",
+          "direction": "output",
+          "value": "X"
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_10",
+      "type": "LED",
+      "label": "W_R",
+      "position": {
+        "x": 560,
+        "y": 400
+      },
+      "size": {
+        "width": 50,
+        "height": 50
+      },
+      "inputPorts": [
+        {
+          "id": "in",
+          "name": "in",
+          "direction": "input",
+          "value": "X"
+        }
+      ],
+      "outputPorts": [
+        {
+          "id": "out",
+          "name": "Q",
+          "direction": "output",
+          "value": "X"
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_11",
+      "type": "LED",
+      "label": "ALERT",
+      "position": {
+        "x": 560,
+        "y": 240
+      },
+      "size": {
+        "width": 50,
+        "height": 50
+      },
+      "inputPorts": [
+        {
+          "id": "in",
+          "name": "in",
+          "direction": "input",
+          "value": "X"
+        }
+      ],
+      "outputPorts": [
+        {
+          "id": "out",
+          "name": "Q",
+          "direction": "output",
+          "value": "X"
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_12",
+      "type": "LED",
+      "label": "SAFE",
+      "position": {
+        "x": 560,
+        "y": 320
+      },
+      "size": {
+        "width": 50,
+        "height": 50
+      },
+      "inputPorts": [
+        {
+          "id": "in",
+          "name": "in",
+          "direction": "input",
+          "value": "X"
+        }
+      ],
+      "outputPorts": [
+        {
+          "id": "out",
+          "name": "Q",
+          "direction": "output",
+          "value": "X"
+        }
+      ],
+      "config": {}
+    },
+    {
+      "id": "comp_1792610898543_13",
+      "type": "BUZZER",
+      "label": "BUZZER",
+      "position": {
+        "x": 560,
+        "y": 160
+      },
+      "size": {
+        "width": 60,
+        "height": 50
+      },
+      "inputPorts": [
+        {
+          "id": "in",
+          "name": "in",
+          "direction": "input",
+          "value": "X"
+        }
+      ],
+      "outputPorts": [
+        {
+          "id": "out",
+          "name": "Q",
+          "direction": "output",
+          "value": "X"
+        }
+      ],
+      "config": {}
+    }
+  ],
+  "wires": [
+    {
+      "id": "wire_1792610898544_14",
+      "fromComponentId": "comp_1792610898543_0",
+      "fromPortId": "out",
+      "toComponentId": "comp_1792610898543_4",
+      "toPortId": "in_A",
+      "value": 0
+    },
+    {
+      "id": "wire_1792610898544_15",
+      "fromComponentId": "comp_1792610898543_2",
+      "fromPortId": "out",
+      "toComponentId": "comp_1792610898543_4",
+      "toPortId": "in_B",
+      "value": 0
+    },
+    {
+      "id": "wire_1792610898544_16",
+      "fromComponentId": "comp_1792610898543_1",
+      "fromPortId": "out",
+      "toComponentId": "comp_1792610898543_5",
+      "toPortId": "in_A",
+      "value": 0
+    },
+    {
+      "id": "wire_1792610898544_17",
+      "fromComponentId": "comp_1792610898543_3",
+      "fromPortId": "out",
+      "toComponentId": "comp_1792610898543_5",
+      "toPortId": "in_B",
+      "value": 0
+    },
+    {
+      "id": "wire_1792610898544_18",
+      "fromComponentId": "comp_1792610898543_0",
+      "fromPortId": "out",
+      "toComponentId": "comp_1792610898543_6",
+      "toPortId": "in_A",
+      "value": 0
+    },
+    {
+      "id": "wire_1792610898544_19",
+      "fromComponentId": "comp_1792610898543_1",
+      "fromPortId": "out",
+      "toComponentId": "comp_1792610898543_6",
+      "toPortId": "in_B",
+      "value": 0
+    },
+    {
+      "id": "wire_1792610898544_20",
+      "fromComponentId": "comp_1792610898543_6",
+      "fromPortId": "out_Y",
+      "toComponentId": "comp_1792610898543_7",
+      "toPortId": "in_A",
+      "value": "X"
+    },
+    {
+      "id": "wire_1792610898544_21",
+      "fromComponentId": "comp_1792610898543_4",
+      "fromPortId": "out_Y",
+      "toComponentId": "comp_1792610898543_8",
+      "toPortId": "in_A",
+      "value": "X"
+    },
+    {
+      "id": "wire_1792610898544_22",
+      "fromComponentId": "comp_1792610898543_5",
+      "fromPortId": "out_Y",
+      "toComponentId": "comp_1792610898543_8",
+      "toPortId": "in_B",
+      "value": "X"
+    },
+    {
+      "id": "wire_1792610898544_23",
+      "fromComponentId": "comp_1792610898543_4",
+      "fromPortId": "out_Y",
+      "toComponentId": "comp_1792610898543_9",
+      "toPortId": "in",
+      "value": "X"
+    },
+    {
+      "id": "wire_1792610898544_24",
+      "fromComponentId": "comp_1792610898543_5",
+      "fromPortId": "out_Y",
+      "toComponentId": "comp_1792610898543_10",
+      "toPortId": "in",
+      "value": "X"
+    },
+    {
+      "id": "wire_1792610898544_25",
+      "fromComponentId": "comp_1792610898543_6",
+      "fromPortId": "out_Y",
+      "toComponentId": "comp_1792610898543_11",
+      "toPortId": "in",
+      "value": "X"
+    },
+    {
+      "id": "wire_1792610898544_26",
+      "fromComponentId": "comp_1792610898543_7",
+      "fromPortId": "out_Y",
+      "toComponentId": "comp_1792610898543_12",
+      "toPortId": "in",
+      "value": "X"
+    },
+    {
+      "id": "wire_1792610898544_27",
+      "fromComponentId": "comp_1792610898543_8",
+      "fromPortId": "out_Y",
+      "toComponentId": "comp_1792610898543_13",
+      "toPortId": "in",
+      "value": "X"
+    }
+  ]
+}
